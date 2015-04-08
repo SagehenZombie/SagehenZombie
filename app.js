@@ -4,10 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var UUID = require('node-uuid');
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
 var app = express();
 var io = require('socket.io')(app);
 // view engine setup
@@ -21,6 +20,7 @@ var handlebars = require('express3-handlebars').create({ defaultLayout: 'main',h
 }});
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -64,5 +64,20 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var players = [];
+
+io.on('connection',function(client){
+  client.on('connected',function(info){
+    var player = {name:info.name,avatar:info.avatar,id:UUID()};
+    client.player = player;
+    players.push(player);
+    client.broadcast.emit('newPlayer',player);
+    console.log('\t socket.io:: player ' + client.player.id + ' connected');
+  })
+  client.on('disconnect', function () {
+    console.log('\t socket.io:: client disconnected ' + client.userid );
+
+  });
+})
 
 module.exports = app;
