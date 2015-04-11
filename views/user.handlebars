@@ -83,7 +83,7 @@ window.onload=function(){
     });
 
     socket.on('countdown',function(){
-        seconds = 30;
+        seconds = 10;
         $('#state').text('Countdown: '+seconds);
         setInterval(function(){
             seconds--;

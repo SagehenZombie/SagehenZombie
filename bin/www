@@ -111,7 +111,7 @@ io.on('connection',function(client){
       setTimeout(function(){
         client.emit('game start');
         client.broadcast.emit('game start');
-      },30000);
+      },10000);
     }
   });
 
