@@ -110,6 +110,6 @@ Player.prototype.die=function(){
 Player.prototype.closeTo=function(anotherPlayer){
     var delta_x = this.x-anotherPlayer.x;
     var delta_y = this.y-anotherPlayer.y;
-    var distance = sqrt(delta_x^2+delta_y^2);
+    var distance = Math.sqrt(delta_x^2+delta_y^2);
     return distance<16;
 }

@@ -129,7 +129,7 @@ io.on('connection',function(client){
 
   client.on('infect',function(data){
       var victim = data.victim;
-      client.broadcast.emit('infect',{victim:victime});
+      client.broadcast.emit('infect',{victim:victim});
   });
 
   client.on('disconnect', function () {
