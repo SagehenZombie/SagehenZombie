@@ -1,32 +1,41 @@
-function Player(name,avatar,x,y,id){
+function Player(id,name,avatar,x,y){
+    this.id = id;
     this.name = name;
     this.avatar = avatar;
     this.x = x;
     this.y = y;
-    this.id = id;
+    this.dir = 0;
+    this.state = 0;
+    this.sagehen_front = document.getElementById("sagehen_front");
 }
-Player.prototype.speed = function(){
+Player.prototype.speed = function(delta){
     if(this.avatar=='human'){
-        return 10;
+        return 0.5 * delta;
     }
     else{
-        return 7;
+        return 0.35 * delta;
+    }
+}
+Player.prototype.move=function(delta, dir, state){
+    if (state == 1) {
+        if(dir==0){
+            this.x = this.x - this.speed(delta);
+        }
+        else if(dir==2){
+            this.x = this.x + this.speed(delta);
+        }
+        else if(dir==1){
+            this.y = this.y + this.speed(delta);
+        }
+        else{
+            this.y = this.y - this.speed(delta);
+        }
     }
 }
 
-Player.prototype.move=function(dir){
-    if(dir==0){
-        this.x = this.x - this.speed();
-    }
-    else if(dir==2){
-        this.x = this.x + this.speed();
-    }
-    else if(dir==1){
-        this.y = this.y + this.speed();
-    }
-    else{
-        this.y = this.y - this.speed();
-    }
+Player.prototype.draw=function() {
+    console.log(this.x + "," + this.y);
+    context.drawImage(sagehen_front,this.x,this.y,32,32);
 }
 
 Player.prototype.die=function(){
@@ -34,7 +43,6 @@ Player.prototype.die=function(){
         this.avatar='zombie';
     }
 }
-
 Player.prototype.closeTo=function(anotherPlayer){
     var delta_x = this.x-anotherPlayer.x;
     var delta_y = this.y-anotherPlayer.y;

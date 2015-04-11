@@ -112,7 +112,7 @@ io.on('connection',function(client){
       setTimeout(function(){
         client.emit('game start');
         client.broadcast.emit('game start');
-      },10000);
+      },100);
     }
   });
 

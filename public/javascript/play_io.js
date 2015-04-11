@@ -16,6 +16,7 @@ window.onload=function(){
 
     var id = getUrlParameter('id');
     var socket = io.connect('http://localhost:3000');
+    var players = null;
     socket.on('welcome',function(data){
         players = data.players;
     });
