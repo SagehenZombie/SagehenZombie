@@ -15,3 +15,27 @@ canvas {
     display: block;
     width: 1400px;
 }
+
+#container {
+     margin-left: 15%
+}
+
+#form {
+    padding: 5%;
+}
+
+#quote {
+    margin: 10%;
+    padding: 5%
+}
+
+#winner_info {
+    margin-left: 40%;
+    margin-top: 50px;
+    font-size: 2em;
+    color: red
+}
+
+#state {
+    font-family: monospace
+}
