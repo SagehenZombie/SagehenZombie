@@ -1,12 +1,3 @@
-body {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    padding: 10px;
-}
-
-a {
-    color: #00B7FF;
-}
-
 canvas {
     padding-left: 0;
     padding-right: 0;
@@ -16,26 +7,9 @@ canvas {
     width: 1400px;
 }
 
-#container {
-     margin-left: 15%
-}
-
-#form {
-    padding: 5%;
-}
-
-#quote {
-    margin: 10%;
-    padding: 5%
-}
-
 #winner_info {
     margin-left: 40%;
     margin-top: 50px;
     font-size: 2em;
     color: red
-}
-
-#state {
-    font-family: monospace
 }

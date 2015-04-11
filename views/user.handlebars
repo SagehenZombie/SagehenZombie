@@ -8,22 +8,22 @@
 {{/if}}
 
 <div id="container">
-    <div id="form">
-        <p>What is your name?</p>
-        <input type="text" name="name" id="nm" value="David Oxtoby">
-
-        <p>H or Z?</p>
-        <select name="avatar" id="sel">
-            <option value="human" selected="true">Sagehen H</option>
-            <option value="zombie">Sagehen Z</option>
-        </select>
-        <img id="demo_img" src="/images/sagehen_front.png">
-
-        <p>
-            <button id="ready_button">Ready!</button>
-        </p>
+    <form role="form">
+        <div class="form-group">
+            <label for="nm">What is your name?</label>
+            <input type="text" name="name" id="nm" value="David Oxtoby" />
+        </div>
+        <div class="form-group">
+            <label for="sel">Do you want to be a human or a zombie?</label>
+            <select class="combobox" name="avatar" id="sel">
+                <option value="human" selected="true">Sagehen Human</option>
+                <option value="zombie">Sagehen Zombie</option>
+            </select>
+            <img id="demo_img" src="/images/sagehen_front.png">
+        </div>
+        <button class="btn-default" id="ready_button">Ready!</button>
         <p id="state"></p>
-    </div>
+    </form>
     <div id="players">
         <p>Current Players:</p>
         <ul>
@@ -52,3 +52,8 @@
 <script src="javascript/user_io.js"></script>
 <script scr="javascript/bootstrap.min.js"></script>
 <script scr="javascript/bootstrap-combobox.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.combobox').combobox();
+    });
+</script>
