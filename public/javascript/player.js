@@ -16,6 +16,12 @@ Player.prototype.speed = function(delta){
         return 0.35 * delta;
     }
 }
+
+Player.prototype.updateLocation = function(x,y){
+    this.x = x;
+    this.y = y;
+}
+
 Player.prototype.move=function(delta, dir, state){
     if (state == 1) {
         if(dir==0){
@@ -30,6 +36,7 @@ Player.prototype.move=function(delta, dir, state){
         else{
             this.y = this.y - this.speed(delta);
         }
+        socket.emit('move',{player:player});
     }
 }
 

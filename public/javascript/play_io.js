@@ -15,7 +15,7 @@ window.onload=function(){
     }
 
     var id = getUrlParameter('id');
-    var socket = io.connect('http://localhost:3000');
+    socket = io.connect('http://localhost:3000');
     var players = null;
     socket.on('welcome',function(data){
         players = data.players;
@@ -33,6 +33,18 @@ window.onload=function(){
     socket.on('winner',function(data){
         winner = data.winner;
         window.location = '/?winner='+winner;
-    })
+    });
+
+    socket.on('move',function(data){
+        var id = data.player.id;
+        var folk;
+        for(i in players){
+            if(id==players[i].id){
+                folk = players[i];
+                break;
+            }
+        }
+        folk.updateLocation(data.player.x,data.player.y);
+    });
 
 }

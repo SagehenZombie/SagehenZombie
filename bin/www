@@ -116,10 +116,9 @@ io.on('connection',function(client){
     }
   });
 
-  client.on('move',function(location){
-    player.x = location.x;
-    player.y = location.y;
-    client.to('others').emit('move',{player:player});
+  client.on('move',function(data){
+    var player = data.player;
+    client.broadcast.emit('move',{player:player});
     console.log('\t socket.io:: player ' + client.player.id + ' moved');
   });
 
