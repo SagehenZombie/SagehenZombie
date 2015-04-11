@@ -1,5 +1,6 @@
 window.onload=function(){
 
+
     function getUrlParameter(sParam)
     {
         var sPageURL = window.location.search.substring(1);
@@ -33,7 +34,10 @@ window.onload=function(){
         if(players[i].id = id){
             player = players[i];
         }
-    }
+    };
+    $('#dc').click(function(){
+        socket.emit('disconnect');
+    });
 
     socket.on('gameover',function(){
         socket.emit('result',{players:players});

@@ -8,7 +8,6 @@ var app = require('../app');
 var debug = require('debug')('untitled:server');
 var http = require('http');
 var UUID = require('node-uuid');
-
 /**
  * Get port from environment and store in Express.
  */
@@ -89,9 +88,14 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-var players = [];
+
+  players = [];
 io.on('connection',function(client){
   console.log('a new connection!');
+  if(typeof copiedPlayers!='undefined'){
+    players = copiedPlayers;
+    copiedPlayers = undefined;
+  }
   console.log(players);
   client.emit('welcome',{players:players});
 
@@ -112,6 +116,7 @@ io.on('connection',function(client){
       setTimeout(function(){
         client.emit('game start');
         client.broadcast.emit('game start');
+        copiedPlayers = JSON.parse(JSON.stringify(players));
       },100);
     }
   });
@@ -124,9 +129,10 @@ io.on('connection',function(client){
 
   client.on('infect',function(victim){
 
-  })
+  });
 
   client.on('disconnect', function () {
+    console.log('hhh');
     index = players.indexOf(client.player);
     players.splice(index,1);
     client.broadcast.emit('gonePlayer',{player:client.player});
