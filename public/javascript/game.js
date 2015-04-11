@@ -42,7 +42,7 @@ function update(delta) {
  */
 function draw(interpolationPercentage) {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    player.draw();
+    player.draw(interpolationPercentage);
 }
 /**
  * @param {Number} fps

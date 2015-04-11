@@ -2,6 +2,8 @@ function Player(id,name,avatar,x,y){
     this.id = id;
     this.name = name;
     this.avatar = avatar;
+    this.lastX = x;
+    this.lastY = y;
     this.x = x;
     this.y = y;
     this.dir = 0;
@@ -18,7 +20,9 @@ Player.prototype.speed = function(delta){
 }
 Player.prototype.move=function(delta, dir, state){
     if (state == 1) {
-        if(dir==0){
+        this.lastX = this.x;
+        this.lastY = this.y;
+        if(dir==0) {
             this.x = this.x - this.speed(delta);
         }
         else if(dir==2){
@@ -33,9 +37,10 @@ Player.prototype.move=function(delta, dir, state){
     }
 }
 
-Player.prototype.draw=function() {
-    console.log(this.x + "," + this.y);
-    context.drawImage(sagehen_front,this.x,this.y,32,32);
+Player.prototype.draw=function(interpolationPercentage) {
+    drawingX = this.lastX + (this.x - this.lastX) * interpolationPercentage;
+    drawingY = this.lastY + (this.y - this.lastY) * interpolationPercentage;
+    context.drawImage(sagehen_front,drawingX,drawingY,32,32);
 }
 
 Player.prototype.die=function(){
