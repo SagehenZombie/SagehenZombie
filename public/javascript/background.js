@@ -17,6 +17,24 @@ Background.prototype.add_lawn = function(lawn){
     this.lawns.push(lawn);
 }
 
+function Road(polygon){
+    this.polygon = polygon;
+    this.speed_index = 2;
+}
+
+function Building(polygon){
+    this.polygon = polygon;
+    this.inhabitans = [];
+}
+Building.prototype.accept=function(player){
+    this.inhabitants.push(player);
+}
+
+function Lawn(polygon){
+    this.polygon = polygon;
+    this.speed_index = 0.5;
+}
+
 
 
 
