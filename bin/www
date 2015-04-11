@@ -142,7 +142,7 @@ io.on('connection',function(client){
   });
 
   client.on('started',function(){
-    time = 180000;
+    time = 60000;
     setInterval(function(){
       time = time - 1000;
       client.emit('time elapsed',time);
