@@ -53,6 +53,7 @@ window.onload=function(){
         }
     });
 
+
     socket.on('winner',function(data){
         winner = data.winner;
         window.location = '/?winner='+winner;

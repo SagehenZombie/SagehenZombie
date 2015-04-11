@@ -100,6 +100,7 @@ Player.prototype.draw=function(interpolationPercentage) {
         }
     }
     context.drawImage(figure,this.x,this.y,32,32);
+    context.fillText(this.name,this.x,this.y);
 }
 
 Player.prototype.die=function(){
