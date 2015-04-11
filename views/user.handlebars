@@ -1,29 +1,27 @@
 {{#section 'head'}}
-    <style>
-        #container{margin-left:15%}
-        #form{padding:5%;}
-        #quote{margin:10%;padding:5%}
-        #winner_info{margin-left: 40%;margin-top:50px; font-size:2em;color: red}
-        #state{font-family: monospace}
-    </style>
+
 {{/section}}
 
 {{#if winner}}
-<h1 id="winner_info">The winner is {{winner}}!</h1>
+    <h1 id="winner_info">The winner is {{winner}}!</h1>
 {{/if}}
 
 <div id="container">
     <div id="form">
-            <p>What is your name?</p>
-            <input type="text" name="name" id="nm" value="David Oxtoby">
-            <p>H or Z?</p>
-            <select name="avatar" id="sel">
-                <option value="human" selected="true">Sagehen H</option>
-                <option value="zombie">Sagehen Z</option>
-            </select>
-            <img id="demo_img" src="/images/sagehen_front.png">
-            <p><button id="ready_button">Ready!</button></p>
-            <p id="state"></p>
+        <p>What is your name?</p>
+        <input type="text" name="name" id="nm" value="David Oxtoby">
+
+        <p>H or Z?</p>
+        <select name="avatar" id="sel">
+            <option value="human" selected="true">Sagehen H</option>
+            <option value="zombie">Sagehen Z</option>
+        </select>
+        <img id="demo_img" src="/images/sagehen_front.png">
+
+        <p>
+            <button id="ready_button">Ready!</button>
+        </p>
+        <p id="state"></p>
     </div>
     <div id="players">
         <p>Current Players:</p>
@@ -31,7 +29,6 @@
 
         </ul>
     </div>
-    <!--
     <div id="quote">
         <ol>
             <li>Organize before they rise!</li>
@@ -47,7 +44,6 @@
         </ol>
         <p>--Max Brooks, <i>The Zombie Survival Guide: Complete Protection from the Living Dead</i></p>
     </div>
-    -->
 </div>
 
 <script src="javascript/jquery.js"></script>
