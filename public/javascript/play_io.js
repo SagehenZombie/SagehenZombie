@@ -68,6 +68,7 @@ window.onload=function(){
             }
         }
         folk.updateLocation(data.player.x,data.player.y);
+        folk.dir = data.player.dir;
     });
 
 }
