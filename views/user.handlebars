@@ -17,6 +17,7 @@
                 <option value="human" selected="true">Sagehen H</option>
                 <option value="zombie">Sagehen Z</option>
             </select>
+            <img id="demo_img" src="/images/sagehen_front.png">
             <p><button id="ready_button">Ready!</button></p>
             <p id="state"></p>
     </div>
@@ -49,6 +50,16 @@
 <script>
     var ready = false;
 window.onload=function(){
+
+    $('#sel').change(function(){
+        if($(this).val()=='human'){
+            $('#demo_img').attr('src','/images/sagehen_front.png');
+        }
+        else{
+            $('#demo_img').attr('src','/images/zombie_front.png');
+        }
+    })
+
     var socket = io.connect('http://localhost:3000');
 
     socket.on('welcome',function(data){
