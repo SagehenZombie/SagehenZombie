@@ -1,5 +1,5 @@
 var players = [];
-var player;
+var player = new Player(1,"Kent","human",10,400);
 window.onload=function(){
 
 
@@ -30,12 +30,13 @@ window.onload=function(){
             }
             players.push(new Player(object.id,object.name,object.avatar,xc,yc));
         }
-    });
-    for(i in players){
-        if(players[i].id == id){
-            player = players[i];
+        for(i in players){
+            if(players[i].id == id){
+                player = players[i];
+            }
         }
-    };
+    });
+
     $('#dc').click(function(){
         socket.emit('disconnect');
     });
