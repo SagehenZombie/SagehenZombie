@@ -12,4 +12,8 @@ router.get('/', function(req, res, next) {
   }
 });
 
+router.get('/polygon', function(req, res, next) {
+  res.render('polygon');
+});
+
 module.exports = router;
