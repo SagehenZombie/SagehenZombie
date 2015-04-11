@@ -10,7 +10,7 @@ window.onload=function(){
         }
     })
 
-    var socket = io.connect(window.location.hostname);
+var socket = io.connect(window.location.hostname);
 
 
     socket.on('welcome',function(data){
