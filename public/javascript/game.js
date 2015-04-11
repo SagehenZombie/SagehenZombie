@@ -33,7 +33,8 @@ function update(delta) {
     player.move(delta, dir, state);
     for (x in players) {
         if (player.closeTo(players[x])) {
-            // Send event
+            players[x].die();
+            socket.emit('infect',{victim:players[x]});
         }
     }
     state = 0;

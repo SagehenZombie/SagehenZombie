@@ -2,7 +2,6 @@ var players = [];
 var player = new Player(1,"Kent","human",10,400);
 window.onload=function(){
 
-
     function getUrlParameter(sParam)
     {
         var sPageURL = window.location.search.substring(1);
@@ -43,6 +42,15 @@ window.onload=function(){
 
     socket.on('gameover',function(){
         socket.emit('result',{players:players});
+    });
+
+    socket.on('infect',function(data){
+        var ID  = data.victim.id;
+        for(i in players){
+            if(players[i].id==ID){
+                players[i].die();
+            }
+        }
     });
 
     socket.on('winner',function(data){
