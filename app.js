@@ -4,11 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var UUID = require('node-uuid');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var app = express();
-var io = require('socket.io')(app);
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views/'));
 var handlebars = require('express3-handlebars').create({ defaultLayout: 'main',helpers: {
@@ -64,40 +64,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var players = [];
 
-io.on('connection',function(client){
-
-  client.emit('player list',{players:players});
-
-  client.on('connected',function(info){
-    //create the player
-    var player = {name:info.name,avatar:info.avatar,id:UUID()};
-    client.player = player;
-    //add the player to the list of players
-    players.push(player);
-    //send the new player info to other players
-    client.broadcast.emit('newPlayer',{player:player});
-    console.log('\t socket.io:: player ' + client.player.id + ' connected');
-  });
-
-  client.on('move',function(location)){
-    player.x = location.x;
-    player.y = location.y;
-    client.boardcast.emit('move',{player:player});
-  }
-
-  client.on('infect',function(victim){
-
-  })
-
-  client.on('disconnect', function () {
-    index = players.indexOf(client.player);
-    players.splice(index,1);
-    client.broadcast.emit('gonePlayer',{player:player});
-    console.log('\t socket.io:: client disconnected ' + client.userid );
-
-  });
-})
 
 module.exports = app;

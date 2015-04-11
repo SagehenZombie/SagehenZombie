@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('untitled:server');
 var http = require('http');
+var UUID = require('node-uuid');
 
 /**
  * Get port from environment and store in Express.
@@ -20,7 +21,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-
+var io = require('socket.io').listen(server);
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -88,3 +89,48 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+var players = [];
+
+io.on('connection',function(client){
+  console.log('a new connection!')
+  client.emit('welcome',{players:players});
+
+  client.on('connected',function(info){
+    //create the player
+    var player = {name:info.name,avatar:info.avatar,id:UUID()};
+    client.player = player;
+    //add the player to the list of players
+    players.push(player);
+    //send the new player info to other players
+    client.broadcast.emit('newPlayer',{player:player});
+    console.log('\t socket.io:: player ' + client.player.id + client.player.name + ' connected'+players.length);
+    if(players.length>=2){
+      client.emit('countdown');
+      client.broadcast.emit('countdown');
+      console.log('countdown starts');
+      setTimeout(function(){
+        client.emit('game start');
+      },30000);
+    }
+  });
+
+  client.on('move',function(location){
+    player.x = location.x;
+    player.y = location.y;
+    client.boardcast.emit('move',{player:player});
+    console.log('\t socket.io:: player ' + client.player.id + ' moved');
+  });
+
+  client.on('infect',function(victim){
+
+  })
+
+  client.on('disconnect', function () {
+    index = players.indexOf(client.player);
+    players.splice(index,1);
+    client.broadcast.emit('gonePlayer',{player:client.player});
+    console.log('\t socket.io:: client disconnected ' + client.userid );
+
+  });
+})
