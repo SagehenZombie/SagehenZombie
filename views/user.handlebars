@@ -1,12 +1,16 @@
 {{#section 'head'}}
     <style>
         #container{margin-left:15%}
-        #form{padding:5%}
+        #form{padding:5%;}
         #quote{margin:10%;padding:5%}
+        #winner_info{margin-left: 40%;margin-top:50px; font-size:2em;color: red}
         #state{font-family: monospace}
     </style>
 {{/section}}
 
+{{#if winner}}
+<h1 id="winner_info">The winner is {{winner}}!</h1>
+{{/if}}
 
 <div id="container">
     <div id="form">
@@ -22,6 +26,7 @@
             <p id="state"></p>
     </div>
     <div id="players">
+        <p>Current Players:</p>
         <ul>
 
         </ul>

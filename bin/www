@@ -145,5 +145,16 @@ io.on('connection',function(client){
         client.broadcast.emit('gameover');
       }
     },1000)
+  });
+
+  client.on('result',function(data){
+    var folks = data.players;
+    winner = 'zombie';
+    for(i in folks){
+      if(folks[i].avatar=='human'){
+        winner = 'human';
+      }
+    }
+    client.emit('winner',{winner:winner});
   })
 })
