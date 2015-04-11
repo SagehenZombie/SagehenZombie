@@ -8,7 +8,6 @@ canvas.height = 800;
 paper.setup(canvas);
 
 player = new Player(1,"Kent","human",400,400);
-
 $(document).keydown(function (e) {
     state = 1;
     switch (event.keyCode) {
@@ -33,7 +32,6 @@ $(document).keydown(function (e) {
  */
 function update(delta) {
     player.move(delta, dir, state);
-    dir = 0;
     state = 0;
 }
 /**
@@ -41,7 +39,7 @@ function update(delta) {
  *   How much to interpolate between frames.
  */
 function draw(interpolationPercentage) {
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, 1400, 800);
     player.draw(interpolationPercentage);
 }
 /**

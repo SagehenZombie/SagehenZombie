@@ -8,14 +8,15 @@ function Player(id,name,avatar,x,y){
     this.y = y;
     this.dir = 0;
     this.state = 0;
-    this.sagehen_front = document.getElementById("sagehen_front");
+    this.switch = false;
+    this.maxTime = 1;
 }
 Player.prototype.speed = function(delta){
     if(this.avatar=='human'){
-        return 0.5 * delta;
+        return 0.07 * delta;
     }
     else{
-        return 0.35 * delta;
+        return 0.049 * delta;
     }
 }
 
@@ -28,6 +29,15 @@ Player.prototype.move=function(delta, dir, state){
     if (state == 1) {
         this.lastX = this.x;
         this.lastY = this.y;
+        this.time += delta;
+        if (this.time >= this.maxTime) {
+            this.time = 0;
+            if (this.switch) {
+                this.switch = false;
+            } else {
+                this.switch = true;
+            }
+        }
         if(dir==0) {
             this.x = this.x - this.speed(delta);
         }
@@ -42,12 +52,56 @@ Player.prototype.move=function(delta, dir, state){
         }
         socket.emit('move',{player:player});
     }
+    this.dir = dir;
+    this.state = state;
 }
 
 Player.prototype.draw=function(interpolationPercentage) {
+    var figure = sagehen_front;
+    if (this.dir == 0) {
+        if (this.state == 1) {
+            if (this.switch) {
+                figure = sagehen_left_walk_1;
+            } else {
+                figure = sagehen_left;
+            }
+        } else {
+            figure = sagehen_left;
+        }
+    } else if (this.dir == 3) {
+        if (this.state == 1) {
+            if (this.switch) {
+                figure = sagehen_back_walk_1;
+            } else {
+                figure = sagehen_back_walk_2;
+            }
+        } else {
+            figure = sagehen_back;
+        }
+    } else if (this.dir == 2) {
+        if (this.state == 1) {
+            if (this.switch) {
+                figure = sagehen_right_walk_1;
+            } else {
+                figure = sagehen_right;
+            }
+        } else {
+            figure = sagehen_right;
+        }
+    } else {
+        if (this.state == 1) {
+            if (this.switch) {
+                figure = sagehen_front_walk_1;
+            } else {
+                figure = sagehen_front_walk_2;
+            }
+        } else {
+            figure = sagehen_front;
+        }
+    }
     drawingX = this.lastX + (this.x - this.lastX) * interpolationPercentage;
     drawingY = this.lastY + (this.y - this.lastY) * interpolationPercentage;
-    context.drawImage(sagehen_front,drawingX,drawingY,32,32);
+    context.drawImage(figure,drawingX,drawingY,32,32);
 }
 
 Player.prototype.die=function(){
