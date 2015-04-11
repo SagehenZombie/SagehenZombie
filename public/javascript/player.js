@@ -12,10 +12,10 @@ function Player(id,name,avatar,x,y){
     this.maxTime = 1;
 }
 Player.prototype.speed = function(delta){
-    if(this.avatar=='human'){
+    if(this.avatar=='human') {
         return 0.14 * delta;
     }
-    else{
+    else {
         return 0.098 * delta;
     }
 }
@@ -58,45 +58,89 @@ Player.prototype.move=function(delta, dir, state){
 
 Player.prototype.draw=function(interpolationPercentage) {
     var figure = sagehen_front;
-    if (this.dir == 0) {
-        if (this.state == 1) {
-            if (this.switch) {
-                figure = sagehen_left_walk_1;
+    if (this.avatar == "zombie") {
+        if (this.dir == 0) {
+            if (this.state == 1) {
+                if (this.switch) {
+                    figure = zombie_left_walk_1;
+                } else {
+                    figure = zombie_left;
+                }
+            } else {
+                figure = zombie_left;
+            }
+        } else if (this.dir == 3) {
+            if (this.state == 1) {
+                if (this.switch) {
+                    figure = zombie_back_walk_1;
+                } else {
+                    figure = zombie_back_walk_2;
+                }
+            } else {
+                figure = zombie_back;
+            }
+        } else if (this.dir == 2) {
+            if (this.state == 1) {
+                if (this.switch) {
+                    figure = zombie_right_walk_1;
+                } else {
+                    figure = zombie_right;
+                }
+            } else {
+                figure = zombie_right;
+            }
+        } else {
+            if (this.state == 1) {
+                if (this.switch) {
+                    figure = zombie_front_walk_1;
+                } else {
+                    figure = zombie_front_walk_2;
+                }
+            } else {
+                figure = zombie_front;
+            }
+        }
+    } else {
+        if (this.dir == 0) {
+            if (this.state == 1) {
+                if (this.switch) {
+                    figure = sagehen_left_walk_1;
+                } else {
+                    figure = sagehen_left;
+                }
             } else {
                 figure = sagehen_left;
             }
-        } else {
-            figure = sagehen_left;
-        }
-    } else if (this.dir == 3) {
-        if (this.state == 1) {
-            if (this.switch) {
-                figure = sagehen_back_walk_1;
+        } else if (this.dir == 3) {
+            if (this.state == 1) {
+                if (this.switch) {
+                    figure = sagehen_back_walk_1;
+                } else {
+                    figure = sagehen_back_walk_2;
+                }
             } else {
-                figure = sagehen_back_walk_2;
+                figure = sagehen_back;
             }
-        } else {
-            figure = sagehen_back;
-        }
-    } else if (this.dir == 2) {
-        if (this.state == 1) {
-            if (this.switch) {
-                figure = sagehen_right_walk_1;
+        } else if (this.dir == 2) {
+            if (this.state == 1) {
+                if (this.switch) {
+                    figure = sagehen_right_walk_1;
+                } else {
+                    figure = sagehen_right;
+                }
             } else {
                 figure = sagehen_right;
             }
         } else {
-            figure = sagehen_right;
-        }
-    } else {
-        if (this.state == 1) {
-            if (this.switch) {
-                figure = sagehen_front_walk_1;
+            if (this.state == 1) {
+                if (this.switch) {
+                    figure = sagehen_front_walk_1;
+                } else {
+                    figure = sagehen_front_walk_2;
+                }
             } else {
-                figure = sagehen_front_walk_2;
+                figure = sagehen_front;
             }
-        } else {
-            figure = sagehen_front;
         }
     }
     context.drawImage(figure,this.x,this.y,32,32);
@@ -104,12 +148,14 @@ Player.prototype.draw=function(interpolationPercentage) {
 
 Player.prototype.die=function(){
     if(this.avatar=='human'){
+        console.log("Died");
         this.avatar='zombie';
     }
 }
 Player.prototype.closeTo=function(anotherPlayer){
     var delta_x = this.x-anotherPlayer.x;
     var delta_y = this.y-anotherPlayer.y;
-    var distance = Math.sqrt(delta_x^2+delta_y^2);
+    var distance = Math.abs(delta_x) + Math.abs(delta_y);
+    console.log(distance);
     return distance<16;
 }

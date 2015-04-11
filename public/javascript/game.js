@@ -33,8 +33,10 @@ function update(delta) {
     player.move(delta, dir, state);
     for (x in players) {
         if (player.closeTo(players[x])) {
-            players[x].die();
-            socket.emit('infect',{victim:players[x]});
+            if (player.id != players[x].id) {
+                players[x].die();
+                socket.emit('infect',{victim:players[x]});
+            }
         }
     }
     state = 0;
