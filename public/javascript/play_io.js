@@ -25,5 +25,13 @@ window.onload=function(){
         }
     }
 
+    socket.on('gameover',function(){
+        socket.emit('result',{players:players});
+    });
+
+    socket.on('winner',function(data){
+        winner = data.winner;
+        window.location = '/?winner='+winner;
+    })
 
 }
