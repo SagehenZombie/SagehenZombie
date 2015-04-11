@@ -10,7 +10,8 @@ window.onload=function(){
         }
     })
 
-    var socket = io.connect('http://sagehenhvz:3003');
+var socket = io.connect(window.location.hostname);
+
 
     socket.on('welcome',function(data){
         $('#state').text('Successfully connected to the server!');
