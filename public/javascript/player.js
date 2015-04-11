@@ -13,10 +13,10 @@ function Player(id,name,avatar,x,y){
 }
 Player.prototype.speed = function(delta){
     if(this.avatar=='human') {
-        return 0.24 * delta;
+        return 0.38 * delta;
     }
     else {
-        return 0.18 * delta;
+        return 0.30 * delta;
     }
 }
 

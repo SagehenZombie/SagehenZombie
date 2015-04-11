@@ -34,7 +34,7 @@ var socket = io.connect(window.location.hostname);
 
 
     socket.on('countdown',function(){
-        seconds = 10;
+        seconds = 20;
         $('#state').text('Countdown: '+seconds);
         setInterval(function(){
             seconds--;
