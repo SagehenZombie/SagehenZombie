@@ -67,14 +67,34 @@ app.use(function(err, req, res, next) {
 var players = [];
 
 io.on('connection',function(client){
+
+  client.emit('player list',{players:players});
+
   client.on('connected',function(info){
+    //create the player
     var player = {name:info.name,avatar:info.avatar,id:UUID()};
     client.player = player;
+    //add the player to the list of players
     players.push(player);
-    client.broadcast.emit('newPlayer',player);
+    //send the new player info to other players
+    client.broadcast.emit('newPlayer',{player:player});
     console.log('\t socket.io:: player ' + client.player.id + ' connected');
+  });
+
+  client.on('move',function(location)){
+    player.x = location.x;
+    player.y = location.y;
+    client.boardcast.emit('move',{player:player});
+  }
+
+  client.on('infect',function(victim){
+
   })
+
   client.on('disconnect', function () {
+    index = players.indexOf(client.player);
+    players.splice(index,1);
+    client.broadcast.emit('gonePlayer',{player:player});
     console.log('\t socket.io:: client disconnected ' + client.userid );
 
   });
