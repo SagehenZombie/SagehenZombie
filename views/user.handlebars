@@ -47,24 +47,28 @@
 <script src="javascript/jquery.js"></script>
 <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
 <script>
-
+    var ready = false;
+window.onload=function(){
     var socket = io.connect('http://localhost:3000');
 
     socket.on('welcome',function(data){
         $('#state').text('Successfully connected to the server!');
         var players = data.players;
-        for(player in players){
-            $('#players ul').append('<li>'+player.avatar+' '+player.name+'</li>');
+        console.log(players);
+        for(i in players){
+            $('#players ul').append('<li>'+players[i].avatar+' '+players[i].name+'</li>');
         }
     });
 
     $('#ready_button').click(function(){
-        $(this).text('Waiting');
-        $('#state').text('Waiting for more players');
-        var name = $('#nm').val();
-        var avatar = $('#sel').val();
-        socket.emit('connected',{name:name,avatar:avatar});
-        $('#players ul').append('<li>'+avatar+' '+name+'</li>');
+        if(!ready){
+            ready = true;
+            $(this).text('Waiting');
+            $('#state').text('Waiting for more players');
+            var name = $('#nm').val();
+            var avatar = $('#sel').val();
+            socket.emit('connected',{name:name,avatar:avatar});
+            $('#players ul').append('<li>'+avatar+' '+name+'</li>');}
     });
 
     socket.on('countdown',function(){
@@ -77,6 +81,9 @@
     });
 
     socket.on('game start',function(){
+        if(!ready){
+            $('#ready_button').trigger('click');
+        }
         window.location= '/';
     });
 
@@ -84,4 +91,6 @@
         newPlayer = data.player;
         $('#players ul').append('<li>'+newPlayer.avatar+' '+newPlayer.name+'</li>');
     })
+}
+
 </script>

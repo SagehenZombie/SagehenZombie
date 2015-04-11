@@ -92,6 +92,7 @@ function onListening() {
 var players = [];
 io.on('connection',function(client){
   console.log('a new connection!');
+  console.log(players);
   client.emit('welcome',{players:players});
 
   client.on('connected',function(info){
@@ -100,7 +101,6 @@ io.on('connection',function(client){
     client.player = player;
     //add the player to the list of players
     players.push(player);
-    console.log(players.length);
     //send the new player info to other players
     client.broadcast.emit('newPlayer',{player:client.player});
     console.log('\t socket.io:: player ' + client.player.id + client.player.name + ' connected'+players.length);
