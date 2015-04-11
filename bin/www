@@ -127,8 +127,9 @@ io.on('connection',function(client){
     console.log('\t socket.io:: player ' + player.id + ' moved');
   });
 
-  client.on('infect',function(victim){
-
+  client.on('infect',function(data){
+      var victim = data.victim;
+      client.broadcast.emit('infect',{victim:victime});
   });
 
   client.on('disconnect', function () {
