@@ -141,26 +141,8 @@ io.on('connection',function(client){
 
   });
 
-  client.on('started',function(){
-    time = 60000;
-    setInterval(function(){
-      time = time - 1000;
-      client.emit('time elapsed',time);
-      if (time<=0){
-        client.emit('gameover');
-        client.broadcast.emit('gameover');
-      }
-    },1000)
-  });
-
-  client.on('result',function(data){
-    var folks = data.players;
-    winner = 'zombie';
-    for(i in folks){
-      if(folks[i].avatar=='human'){
-        winner = 'human';
-      }
-    }
-    client.emit('winner',{winner:winner});
+  client.on('gameover',function(){
+    client.emit('restart');
+    client.broadcast.emit('restart');
   })
 })

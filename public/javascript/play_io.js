@@ -40,9 +40,6 @@ window.onload=function(){
         socket.emit('disconnect');
     });
 
-    socket.on('gameover',function(){
-        socket.emit('result',{players:players});
-    });
 
     socket.on('infect',function(data){
         var ID  = data.victim.id;
@@ -51,13 +48,18 @@ window.onload=function(){
                 players[i].die();
             }
         }
+        var all_zombies = true;
+        for(i in players){
+            if(players[i].avatar=='human'){
+                var all_zombies = false;
+                break;
+            }
+        }
+        if(all_zombies){
+            socket.emit('gameover');
+        }
     });
 
-
-    socket.on('winner',function(data){
-        winner = data.winner;
-        window.location = '/?winner='+winner;
-    });
 
     socket.on('move',function(data){
         var id = data.player.id;
@@ -71,5 +73,9 @@ window.onload=function(){
         folk.updateLocation(data.player.x,data.player.y);
         folk.dir = data.player.dir;
     });
+
+    socket.on('restart',function(){
+        window.location='/?winner=zombie';
+    })
 
 }
