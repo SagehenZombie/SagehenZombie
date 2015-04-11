@@ -18,7 +18,16 @@ window.onload=function(){
     socket = io.connect('http://localhost:3000');
     var players = null;
     socket.on('welcome',function(data){
-        players = data.players;
+        for(i in data.players){
+            var obj = data.players[i];
+            if(object.avatar=='zombie'){
+                var xc=800; var yc=400;
+            }
+            else{
+                var xc=500; var yc=300;
+            }
+            players.push(new Player(object.id,object.name,object.avatar,xc,yc));
+        }
     });
     for(i in players){
         if(players[i].id = id){
