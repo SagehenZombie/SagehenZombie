@@ -31,6 +31,11 @@ $(document).keydown(function (e) {
  */
 function update(delta) {
     player.move(delta, dir, state);
+    for (x in players) {
+        if (player.closeTo(players[x])) {
+            // Send event
+        }
+    }
     state = 0;
 }
 /**
