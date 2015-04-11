@@ -98,6 +98,7 @@ io.on('connection',function(client){
   client.on('connected',function(info){
     //create the player
     var player = {name:info.name,avatar:info.avatar,id:UUID()};
+    client.emit('id',{id:player.id});
     client.player = player;
     //add the player to the list of players
     players.push(player);
@@ -133,4 +134,16 @@ io.on('connection',function(client){
     console.log('\t socket.io:: client disconnected ' + client.userid );
 
   });
+
+  client.on('started',function(){
+    time = 180000;
+    setInterval(function(){
+      time = time - 1000;
+      client.emit('time elapsed',time);
+      if (time<=0){
+        client.emit('gameover');
+        client.broadcast.emit('gameover');
+      }
+    },1000)
+  })
 })
