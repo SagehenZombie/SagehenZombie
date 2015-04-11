@@ -13,10 +13,10 @@ function Player(id,name,avatar,x,y){
 }
 Player.prototype.speed = function(delta){
     if(this.avatar=='human'){
-        return 0.07 * delta;
+        return 0.14 * delta;
     }
     else{
-        return 0.049 * delta;
+        return 0.098 * delta;
     }
 }
 
@@ -99,9 +99,7 @@ Player.prototype.draw=function(interpolationPercentage) {
             figure = sagehen_front;
         }
     }
-    drawingX = this.lastX + (this.x - this.lastX) * interpolationPercentage;
-    drawingY = this.lastY + (this.y - this.lastY) * interpolationPercentage;
-    context.drawImage(figure,drawingX,drawingY,32,32);
+    context.drawImage(figure,this.x,this.y,32,32);
 }
 
 Player.prototype.die=function(){
