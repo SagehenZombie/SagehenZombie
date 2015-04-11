@@ -1,59 +1,60 @@
 {{#section 'head'}}
-    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-combobox.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-combobox.css"/>
 {{/section}}
 
 {{#if winner}}
     <h1 id="winner_info">The winner is {{winner}}!</h1>
 {{/if}}
 
-<div id="container">
-    <div role="form">
-        <div class="form-group">
-            <label for="nm">What is your name?</label>
-            <input type="text" name="name" id="nm" value="David Oxtoby" />
-        </div>
-        <div class="form-group">
-            <label for="sel">Do you want to be a human or a zombie?</label>
-            <select class="combobox" name="avatar" id="sel">
-                <option value="human" selected="true">Sagehen Human</option>
-                <option value="zombie">Sagehen Zombie</option>
-            </select>
-            <img id="demo_img" src="/images/sagehen_front.png">
-        </div>
-        <button class="btn-default" id="ready_button">Ready!</button>
-        <p id="state"></p>
-    </div>
-    <div id="players">
-        <p>Current Players:</p>
-        <ul>
+<div class="vertical-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-7 vertical-align">
+                <div role="form">
+                    <div class="form-group">
+                        <h4 for="nm">What is your name?</h4>
+                        <div class="padding5"></div>
+                        <input type="text" name="name" id="nm" value="David Oxtoby"/>
+                    </div>
+                    <div class="padding10"></div>
+                    <div class="form-group">
+                        <h4 for="sel">Do you want to be a human or a zombie?</h4>
+                        <div class="padding5"></div>
+                        <select class="combobox" name="avatar" id="sel">
+                            <option value="human" selected="true">Sagehen Human</option>
+                            <option value="zombie">Sagehen Zombie</option>
+                        </select>
+                        <img id="demo_img" src="/images/sagehen_front.png">
+                    </div>
+                    <div class="padding10"></div>
+                    <button type="submit" class="btn btn-default" id="ready_button">Ready!</button>
+                    <div class="padding10"></div>
+                    <p id="state"></p>
+                </div>
+         </div><!--
+        --><div class="col-xs-12 col-sm-10 col-md-5 vertical-align">
+                <div id="players">
+                    <h3>Current Players</h3>
+                    <div class="padding10"></div>
+                    <ul>
 
-        </ul>
-    </div>
-    <div id="quote">
-        <ol>
-            <li>Organize before they rise!</li>
-            <li>They feel no fear, why should you?</li>
-            <li>Use your head: cut off theirs.</li>
-            <li>Blades don't need reloading.</li>
-            <li>Ideal protection = tight clothes, short hair.</li>
-            <li>Get up the staircase, then destroy it.</li>
-            <li>Get out of the car, get onto the bike.</li>
-            <li>Keep moving, keep low, keep quiet, keep alert!</li>
-            <li>No place is safe, only safer.</li>
-            <li>The zombie may be gone, but the threat lives on.</li>
-        </ol>
-        <p>--Max Brooks, <i>The Zombie Survival Guide: Complete Protection from the Living Dead</i></p>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
-
 <script src="javascript/jquery.js"></script>
-<script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
-<script src="javascript/user_io.js"></script>
-<script scr="javascript/bootstrap.min.js"></script>
-<script scr="javascript/bootstrap-combobox.js"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.combobox').combobox();
     });
 </script>
+<script src="javascript/user_io.js"></script>
+<script scr="javascript/bootstrap.min.js"></script>
+<script scr="javascript/bootstrap-combobox.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
+

@@ -1,3 +1,28 @@
+body {
+    margin: 10px;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.padding5 {
+    padding: 5px;
+}
+
+.padding10 {
+    padding: 10px;
+}
+
+.spacing20 {
+    margin: 20px;
+}
+
+.spacing50 {
+    margin: 50px;
+}
+
+h6 {
+    padding-top: 10px;
+}
+
 canvas {
     padding-left: 0;
     padding-right: 0;
@@ -12,4 +37,26 @@ canvas {
     margin-top: 50px;
     font-size: 2em;
     color: red
+}
+
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.vertical-align {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.form-actions {
+    margin: 0;
+    background-color: transparent;
+    text-align: center;
 }

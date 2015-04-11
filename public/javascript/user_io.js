@@ -16,7 +16,7 @@ window.onload=function(){
         $('#state').text('Successfully connected to the server!');
         var players = data.players;
         for(i in players){
-            $('#players ul').append('<li>'+players[i].avatar+' '+players[i].name+'</li>');
+            $('#players ul').append('<li><h5>' + players[i].name + ' playing as ' + players[i].avatar + '</h5></li>');
         }
     });
 
@@ -28,7 +28,7 @@ window.onload=function(){
             var name = $('#nm').val();
             var avatar = $('#sel').val();
             socket.emit('connected',{name:name,avatar:avatar});
-            $('#players ul').append('<li>'+avatar+' '+name+'</li>');}
+            $('#players ul').append('<li><h5>' + name + ' playing as ' + avatar + '</h5></li>');}
     });
 
 
@@ -43,7 +43,7 @@ window.onload=function(){
 
     socket.on('newPlayer',function(data){
         newPlayer = data.player;
-        $('#players ul').append('<li>'+newPlayer.avatar+' '+newPlayer.name+'</li>');
+        $('#players ul').append('<li><h5>' + newPlayer.name + ' playing as ' + newPlayer.avatar + '</h5></li>');
     });
 
     var id;
