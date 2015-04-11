@@ -1,11 +1,16 @@
-function Polygon() {
-    this.arrayOfPoints = [];
+function Polygon(array) {
+    this.array = array;
+    this.arrayOfPoints = arrayToTuples(array);
 }
-
-Polygon.prototype.add = function(x,y) {
-    this.arrayOfPoints.push(new paper.Point(x,y));
+function arrayToTuples(array) {
+    points = [];
+    for (i = 0; i < array.length - 1; i++) {
+        if (i % 2 == 0) {
+            points.push(new paper.Point(array[i], array[i+1]));
+        }
+    }
+    return points;
 }
-
 Polygon.prototype.draw = function(paper,color) {
     path = new paper.Path();
     path.fillColor = color;
@@ -14,16 +19,7 @@ Polygon.prototype.draw = function(paper,color) {
     }
 }
 
-function arrayToPolygon(array) {
-    polygon = new Polygon();
-    for (i = 0; i < array.length - 1; i++) {
-        if (i % 2 == 0) {
-            polygon.add(array[i], array[i+1]);
-        }
-    }
-    return polygon;
-}
-
+// Hack to reverse y-coordinate direction
 function reverseSecondCoordinate(arrayToReverse) {
     for (i = 0; i < arrayToReverse.length; i++) {
         if (i % 2 == 1) {

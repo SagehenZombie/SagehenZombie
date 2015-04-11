@@ -55,7 +55,7 @@ window.onload=function(){
         if(!ready){
             $('#ready_button').trigger('click');
         }
-        window.location= '/?id='+id;
+        window.location= '/play?id='+id;
     });
 }
 
