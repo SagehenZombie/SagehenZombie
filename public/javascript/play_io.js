@@ -1,3 +1,5 @@
+var players = [];
+var player;
 window.onload=function(){
 
 
@@ -17,10 +19,9 @@ window.onload=function(){
 
     var id = getUrlParameter('id');
     socket = io.connect('http://localhost:3000');
-    var players = null;
     socket.on('welcome',function(data){
         for(i in data.players){
-            var obj = data.players[i];
+            var object = data.players[i];
             if(object.avatar=='zombie'){
                 var xc=800; var yc=400;
             }
@@ -31,7 +32,7 @@ window.onload=function(){
         }
     });
     for(i in players){
-        if(players[i].id = id){
+        if(players[i].id == id){
             player = players[i];
         }
     };

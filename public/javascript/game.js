@@ -7,7 +7,6 @@ canvas.width = 1400;
 canvas.height = 800;
 paper.setup(canvas);
 
-player = new Player(1,"Kent","human",400,400);
 $(document).keydown(function (e) {
     state = 1;
     switch (event.keyCode) {
