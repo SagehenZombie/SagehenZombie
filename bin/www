@@ -117,7 +117,7 @@ io.on('connection',function(client){
         client.emit('game start');
         client.broadcast.emit('game start');
         copiedPlayers = JSON.parse(JSON.stringify(players));
-      },100);
+      },10000);
     }
   });
 
