@@ -124,7 +124,6 @@ io.on('connection',function(client){
   client.on('move',function(data){
     var player = data.player;
     client.broadcast.emit('move',{player:player});
-    console.log('\t socket.io:: player ' + player.id + ' moved');
   });
 
   client.on('infect',function(data){
