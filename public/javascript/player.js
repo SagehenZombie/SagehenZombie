@@ -39,24 +39,16 @@ Player.prototype.move=function(delta, dir, state){
             }
         }
         if(dir==0) {
-            if (!PolyK.ContainsPoint(background.buildings[0].polygon.array,this.x - this.speed(delta),this.y) || this.avatar == "human") {
-                this.x = this.x - this.speed(delta);
-            }
+            this.x = this.x - this.speed(delta);
         }
         else if(dir==2){
-            if (!PolyK.ContainsPoint(background.buildings[0].polygon.array,this.x + this.speed(delta),this.y) || this.avatar == "human") {
-                this.x = this.x + this.speed(delta);
-            }
+            this.x = this.x + this.speed(delta);
         }
         else if(dir==1){
-            if (!PolyK.ContainsPoint(background.buildings[0].polygon.array,this.x,this.y + this.speed(delta)) || this.avatar == "human") {
-                this.y = this.y + this.speed(delta);
-            }
+            this.y = this.y + this.speed(delta);
         }
         else{
-            if (!PolyK.ContainsPoint(background.buildings[0].polygon.array,this.x,this.y - this.speed(delta)) || this.avatar == "human") {
-                this.y = this.y - this.speed(delta);
-            }
+            this.y = this.y - this.speed(delta);
         }
         socket.emit('move',{player:player});
     }
