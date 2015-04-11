@@ -16,7 +16,7 @@ Player.prototype.speed = function(delta){
         return 0.14 * delta;
     }
     else {
-        return 0.098 * delta;
+        return 0.12 * delta;
     }
 }
 
@@ -39,16 +39,24 @@ Player.prototype.move=function(delta, dir, state){
             }
         }
         if(dir==0) {
-            this.x = this.x - this.speed(delta);
+            if (!PolyK.ContainsPoint(background.buildings[0].polygon.array,this.x - this.speed(delta),this.y) || this.avatar == "human") {
+                this.x = this.x - this.speed(delta);
+            }
         }
         else if(dir==2){
-            this.x = this.x + this.speed(delta);
+            if (!PolyK.ContainsPoint(background.buildings[0].polygon.array,this.x + this.speed(delta),this.y) || this.avatar == "human") {
+                this.x = this.x + this.speed(delta);
+            }
         }
         else if(dir==1){
-            this.y = this.y + this.speed(delta);
+            if (!PolyK.ContainsPoint(background.buildings[0].polygon.array,this.x,this.y + this.speed(delta)) || this.avatar == "human") {
+                this.y = this.y + this.speed(delta);
+            }
         }
         else{
-            this.y = this.y - this.speed(delta);
+            if (!PolyK.ContainsPoint(background.buildings[0].polygon.array,this.x,this.y - this.speed(delta)) || this.avatar == "human") {
+                this.y = this.y - this.speed(delta);
+            }
         }
         socket.emit('move',{player:player});
     }
@@ -144,7 +152,7 @@ Player.prototype.draw=function(interpolationPercentage) {
         }
     }
     context.drawImage(figure,this.x,this.y,32,32);
-    context.fillText(this.name,this.x,this.y);
+    context.fillText(this.name,this.x,this.y - 8);
 }
 
 Player.prototype.die=function(){
@@ -157,6 +165,5 @@ Player.prototype.closeTo=function(anotherPlayer){
     var delta_x = this.x-anotherPlayer.x;
     var delta_y = this.y-anotherPlayer.y;
     var distance = Math.abs(delta_x) + Math.abs(delta_y);
-    console.log(distance);
     return distance<16;
 }
