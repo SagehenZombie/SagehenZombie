@@ -89,11 +89,9 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
 var players = [];
-
 io.on('connection',function(client){
-  console.log('a new connection!')
+  console.log('a new connection!');
   client.emit('welcome',{players:players});
 
   client.on('connected',function(info){
@@ -102,8 +100,9 @@ io.on('connection',function(client){
     client.player = player;
     //add the player to the list of players
     players.push(player);
+    console.log(players.length);
     //send the new player info to other players
-    client.broadcast.emit('newPlayer',{player:player});
+    client.broadcast.emit('newPlayer',{player:client.player});
     console.log('\t socket.io:: player ' + client.player.id + client.player.name + ' connected'+players.length);
     if(players.length>=2){
       client.emit('countdown');
@@ -111,6 +110,7 @@ io.on('connection',function(client){
       console.log('countdown starts');
       setTimeout(function(){
         client.emit('game start');
+        client.broadcast.emit('game start');
       },30000);
     }
   });
@@ -118,7 +118,7 @@ io.on('connection',function(client){
   client.on('move',function(location){
     player.x = location.x;
     player.y = location.y;
-    client.boardcast.emit('move',{player:player});
+    client.to('others').emit('move',{player:player});
     console.log('\t socket.io:: player ' + client.player.id + ' moved');
   });
 

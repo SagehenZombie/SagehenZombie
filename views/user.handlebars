@@ -1,7 +1,7 @@
 {{#section 'head'}}
     <style>
         #container{margin-left:15%}
-        #form{float:left;padding:5%}
+        #form{padding:5%}
         #quote{margin:10%;padding:5%}
         #state{font-family: monospace}
     </style>
@@ -52,7 +52,7 @@
 
     socket.on('welcome',function(data){
         $('#state').text('Successfully connected to the server!');
-        players = data.players;
+        var players = data.players;
         for(player in players){
             $('#players ul').append('<li>'+player.avatar+' '+player.name+'</li>');
         }
@@ -61,8 +61,8 @@
     $('#ready_button').click(function(){
         $(this).text('Waiting');
         $('#state').text('Waiting for more players');
-        name = $('#nm').val();
-        avatar = $('#sel').val();
+        var name = $('#nm').val();
+        var avatar = $('#sel').val();
         socket.emit('connected',{name:name,avatar:avatar});
         $('#players ul').append('<li>'+avatar+' '+name+'</li>');
     });
@@ -82,6 +82,6 @@
 
     socket.on('newPlayer',function(data){
         newPlayer = data.player;
-        $('#players ul').append('<li>'+player.avatar+' '+player.name+'</li>');
+        $('#players ul').append('<li>'+newPlayer.avatar+' '+newPlayer.name+'</li>');
     })
 </script>
